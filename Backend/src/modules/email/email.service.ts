@@ -1,4 +1,4 @@
-import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
+import { SendEmailCommand, SESClient, VerifyEmailIdentityCommand } from '@aws-sdk/client-ses';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
@@ -16,8 +16,14 @@ export class EmailService {
   constructor(@InjectModel(Email.name) private emailModel: EmailModel, private readonly configService: ConfigService) {
     const region = this.configService.get<string>('AWS_REGION');
     const endpoint = this.configService.get<string>('AWS_ENDPOINT');
+    const accessKeyId = this.configService.get<string>('AWS_ACCESS_KEY_ID');
+    const secretAccessKey = this.configService.get<string>('AWS_SECRET_ACCESS_KEY');
 
-    this.sesClient = new SESClient({ region, endpoint });
+    this.sesClient = new SESClient({
+      region,
+      endpoint,
+      credentials: { accessKeyId, secretAccessKey },
+    });
   }
 
   async reply(replyDto: ReplyDto, email: string): Promise<HydratedDocument<Email>> {
@@ -87,6 +93,14 @@ export class EmailService {
       },
       Source: from,
     });
+
+    await this.verifyEmail(from);
+
+    return await this.sesClient.send(command);
+  }
+
+  private async verifyEmail(email: string) {
+    const command = new VerifyEmailIdentityCommand({ EmailAddress: email });
 
     return await this.sesClient.send(command);
   }
