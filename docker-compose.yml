@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - localstack
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - '4200:4200'
+    depends_on:
+      - backend
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - '4566:4566'
