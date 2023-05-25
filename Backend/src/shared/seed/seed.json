@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "johndoe@doitbig.nl",
+      "password": "1234"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "janedoe@doitbig.nl",
+      "password": "4321"
+    }
+  ],
+  "emails": [
+    {
+      "from": "johndoe@doitbig.nl",
+      "to": "janedoe@doitbig.nl",
+      "subject": "Hello",
+      "body": "Hello Jane, how are you?"
+    },
+    {
+      "from": "janedoe@doitbig.nl",
+      "to": "johndoe@doitbig.nl",
+      "subject": "Hello",
+      "body": "Hello John, I'm fine, how are you?"
+    },
+    {
+      "from": " ismail@doitbig.nl",
+      "to": "johndoe@doitbig.nl",
+      "subject": "Hello",
+      "body": "Greetings from Ismail"
+    },
+    {
+      "from": " ismail@doitbig.nl",
+      "to": "janedoe@doitbig.nl",
+      "subject": "Hello",
+      "body": "Greetings from Ismail"
+    }
+  ]
+}
