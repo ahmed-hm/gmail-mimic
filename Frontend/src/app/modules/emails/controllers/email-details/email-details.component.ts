@@ -33,6 +33,7 @@ export class EmailDetailsComponent implements OnInit {
       this.replyForm.patchValue({
         replyTo: this.email._id,
         subject: `Re: ${this.email.subject}`,
+        body: this.email.reply?.body ?? '',
       });
     });
   }
