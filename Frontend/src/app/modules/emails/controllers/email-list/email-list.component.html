@@ -1,0 +1,40 @@
+<div class="container h-100 d-flex flex-column">
+  <div class="my-auto">
+    <div class="table-responsive mt-auto">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let email of emails">
+            <td>{{ email.from }}</td>
+            <td>{{ email.to }}</td>
+            <td>{{ email.subject }}</td>
+            <td>{{ email.createdAt | date: "short" }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" (click)="viewEmail(email)">
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <pagination
+      [totalItems]="pagination.total"
+      [itemsPerPage]="pagination.limit"
+      [(ngModel)]="pagination.page"
+      (pageChanged)="onPageChanged($event)"
+      [maxSize]="5"
+      [boundaryLinks]="true"
+      [rotate]="false"
+    ></pagination>
+  </div>
+</div>
